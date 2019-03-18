@@ -76,6 +76,12 @@ defmodule Elastix.Search do
     prepare_url(elastic_url, "_search/scroll")
     |> HTTP.post(JSON.encode!(data), [], options)
   end
+  
+  
+  def scroll_g(elastic_url, data, options \\ []) do
+    elastic_url <> "/_search/scroll" <> "?scroll=#{data.scroll}&scroll_id=#{data.scroll_id}"
+    |> HTTP.get([], options)
+  end
 
   @doc """
   Returns the number of results for a query using the
